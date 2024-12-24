@@ -1,0 +1,105 @@
+{
+    "models": [
+        {
+            "classname": "Teacher",
+            "code": "class Teacher(Base):\n    \"\"\"\n    description: Table to store teacher details.\n    \"\"\"\n    __tablename__ = 'teachers'\n\n    id = Column(Integer, primary_key=True)\n    name = Column(String)\n    date_of_birth = Column(DateTime)\n    qualification = Column(String)",
+            "sqlite_create": "CREATE TABLE teachers (\n    id INTEGER PRIMARY KEY,\n    name TEXT,\n    date_of_birth DATETIME,\n    qualification TEXT\n);",
+            "description": "Table to store teacher details.",
+            "name": "teachers"
+        },
+        {
+            "classname": "Student",
+            "code": "class Student(Base):\n    \"\"\"\n    description: Stores student details and information.\n    \"\"\"\n    __tablename__ = 'students'\n\n    id = Column(Integer, primary_key=True)\n    name = Column(String)\n    date_of_birth = Column(DateTime)\n    grade_id = Column(Integer, ForeignKey('grades.id'))",
+            "sqlite_create": "CREATE TABLE students (\n    id INTEGER PRIMARY KEY,\n    name TEXT,\n    date_of_birth DATETIME,\n    grade_id INTEGER,\n    FOREIGN KEY(grade_id) REFERENCES grades(id)\n);",
+            "description": "Stores student details and information.",
+            "name": "students"
+        },
+        {
+            "classname": "Grade",
+            "code": "class Grade(Base):\n    \"\"\"\n    description: Represents grade levels for students.\n    \"\"\"\n    __tablename__ = 'grades'\n\n    id = Column(Integer, primary_key=True)\n    level_name = Column(String)\n    description = Column(String)",
+            "sqlite_create": "CREATE TABLE grades (\n    id INTEGER PRIMARY KEY,\n    level_name TEXT,\n    description TEXT\n);",
+            "description": "Represents grade levels for students.",
+            "name": "grades"
+        },
+        {
+            "classname": "TeacherSkill",
+            "code": "class TeacherSkill(Base):\n    \"\"\"\n    description: Records skills of teachers.\n    \"\"\"\n    __tablename__ = 'teacher_skills'\n\n    id = Column(Integer, primary_key=True)\n    teacher_id = Column(Integer, ForeignKey('teachers.id'))\n    skill_name = Column(String)",
+            "sqlite_create": "CREATE TABLE teacher_skills (\n    id INTEGER PRIMARY KEY,\n    teacher_id INTEGER,\n    skill_name TEXT,\n    FOREIGN KEY(teacher_id) REFERENCES teachers(id)\n);",
+            "description": "Records skills of teachers.",
+            "name": "teacher_skills"
+        },
+        {
+            "classname": "TeacherTopicAssignment",
+            "code": "class TeacherTopicAssignment(Base):\n    \"\"\"\n    description: Assigns topics to teachers.\n    \"\"\"\n    __tablename__ = 'teacher_topic_assignments'\n\n    id = Column(Integer, primary_key=True)\n    teacher_id = Column(Integer, ForeignKey('teachers.id'))\n    topic_name = Column(String)",
+            "sqlite_create": "CREATE TABLE teacher_topic_assignments (\n    id INTEGER PRIMARY KEY,\n    teacher_id INTEGER,\n    topic_name TEXT,\n    FOREIGN KEY(teacher_id) REFERENCES teachers(id)\n);",
+            "description": "Assigns topics to teachers.",
+            "name": "teacher_topic_assignments"
+        },
+        {
+            "classname": "StudentGrade",
+            "code": "class StudentGrade(Base):\n    \"\"\"\n    description: Records student grades.\n    \"\"\"\n    __tablename__ = 'student_grades'\n\n    id = Column(Integer, primary_key=True)\n    student_id = Column(Integer, ForeignKey('students.id'))\n    subject = Column(String)\n    grade = Column(String)",
+            "sqlite_create": "CREATE TABLE student_grades (\n    id INTEGER PRIMARY KEY,\n    student_id INTEGER,\n    subject TEXT,\n    grade TEXT,\n    FOREIGN KEY(student_id) REFERENCES students(id)\n);",
+            "description": "Records student grades.",
+            "name": "student_grades"
+        },
+        {
+            "classname": "Fundraising",
+            "code": "class Fundraising(Base):\n    \"\"\"\n    description: Records fundraising activities from local businesses.\n    \"\"\"\n    __tablename__ = 'fundraising'\n\n    id = Column(Integer, primary_key=True)\n    business_name = Column(String)\n    amount_raised = Column(Integer)\n    date = Column(DateTime)",
+            "sqlite_create": "CREATE TABLE fundraising (\n    id INTEGER PRIMARY KEY,\n    business_name TEXT,\n    amount_raised INTEGER,\n    date DATETIME\n);",
+            "description": "Records fundraising activities from local businesses.",
+            "name": "fundraising"
+        },
+        {
+            "classname": "GovernmentGrant",
+            "code": "class GovernmentGrant(Base):\n    \"\"\"\n    description: Stores information about government grants.\n    \"\"\"\n    __tablename__ = 'government_grants'\n\n    id = Column(Integer, primary_key=True)\n    grant_name = Column(String)\n    amount_awarded = Column(Integer)\n    grant_date = Column(DateTime)",
+            "sqlite_create": "CREATE TABLE government_grants (\n    id INTEGER PRIMARY KEY,\n    grant_name TEXT,\n    amount_awarded INTEGER,\n    grant_date DATETIME\n);",
+            "description": "Stores information about government grants.",
+            "name": "government_grants"
+        },
+        {
+            "classname": "Zoo",
+            "code": "class Zoo(Base):\n    \"\"\"\n    description: Contains information about the local zoo.\n    \"\"\"\n    __tablename__ = 'zoo'\n\n    id = Column(Integer, primary_key=True)\n    animal_name = Column(String)\n    species = Column(String)\n    description = Column(String)",
+            "sqlite_create": "CREATE TABLE zoo (\n    id INTEGER PRIMARY KEY,\n    animal_name TEXT,\n    species TEXT,\n    description TEXT\n);",
+            "description": "Contains information about the local zoo.",
+            "name": "zoo"
+        }
+    ],
+    "rules": [],
+    "test_data": "Testing data for each table is created referencing the initialized derived attributes.",
+    "test_data_rows": [
+        {
+            "test_data_row_variable": "teacher1",
+            "code": "teacher1 = Teacher(id=1, name=\"John Doe\", date_of_birth=date(1975, 5, 20), qualification=\"Masters in Education\")"
+        },
+        {
+            "test_data_row_variable": "teacher2",
+            "code": "teacher2 = Teacher(id=2, name=\"Jane Smith\", date_of_birth=date(1985, 8, 15), qualification=\"Bachelors in Science\")"
+        },
+        {
+            "test_data_row_variable": "teacher3",
+            "code": "teacher3 = Teacher(id=3, name=\"Alice Johnson\", date_of_birth=date(1990, 2, 13), qualification=\"PhD in Mathematics\")"
+        },
+        {
+            "test_data_row_variable": "teacher4",
+            "code": "teacher4 = Teacher(id=4, name=\"Bob Brown\", date_of_birth=date(1980, 10, 30), qualification=\"Masters in Physics\")"
+        },
+        {
+            "test_data_row_variable": "student1",
+            "code": "student1 = Student(id=1, name=\"Michael X.\", date_of_birth=date(2010, 11, 22), grade_id=1)"
+        },
+        {
+            "test_data_row_variable": "student2",
+            "code": "student2 = Student(id=2, name=\"Sara Y.\", date_of_birth=date(2009, 6, 17), grade_id=2)"
+        },
+        {
+            "test_data_row_variable": "student3",
+            "code": "student3 = Student(id=3, name=\"Luke Z.\", date_of_birth=date(2011, 3, 5), grade_id=1)"
+        },
+        {
+            "test_data_row_variable": "student4",
+            "code": "student4 = Student(id=4, name=\"Emily W.\", date_of_birth=date(2010, 12, 11), grade_id=3)"
+        }
+    ],
+    "test_data_sqlite": "INSERT INTO teachers (id, name, date_of_birth, qualification) VALUES (1, 'John Doe', '1975-05-20', 'Masters in Education');\nINSERT INTO teachers (id, name, date_of_birth, qualification) VALUES (2, 'Jane Smith', '1985-08-15', 'Bachelors in Science');\nINSERT INTO teachers (id, name, date_of_birth, qualification) VALUES (3, 'Alice Johnson', '1990-02-13', 'PhD in Mathematics');\nINSERT INTO teachers (id, name, date_of_birth, qualification) VALUES (4, 'Bob Brown', '1980-10-30', 'Masters in Physics');\n\nINSERT INTO students (id, name, date_of_birth, grade_id) VALUES (1, 'Michael X.', '2010-11-22', 1);\nINSERT INTO students (id, name, date_of_birth, grade_id) VALUES (2, 'Sara Y.', '2009-06-17', 2);\nINSERT INTO students (id, name, date_of_birth, grade_id) VALUES (3, 'Luke Z.', '2011-03-05', 1);\nINSERT INTO students (id, name, date_of_birth, grade_id) VALUES (4, 'Emily W.', '2010-12-11', 3);",
+    "name": "CharitableEducationApp"
+}

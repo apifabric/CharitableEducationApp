@@ -1,0 +1,85 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+Fundraising: Records fundraising activities from local businesses.
+GovernmentGrant: Stores information about government grants.
+Grade: Represents grade levels for students.
+Student: Stores student details and information.
+StudentGrade: Records student grades.
+Teacher: Table to store teacher details.
+TeacherSkill: Records skills of teachers.
+TeacherTopicAssignment: Assigns topics to teachers.
+Zoo: Contains information about the local zoo.
+'''
+}
+
+Table Fundraising {
+    id INTEGER [primary key]
+    business_name VARCHAR 
+    amount_raised INTEGER 
+    date DATETIME 
+    }
+
+Table GovernmentGrant {
+    id INTEGER [primary key]
+    grant_name VARCHAR 
+    amount_awarded INTEGER 
+    grant_date DATETIME 
+    }
+
+Table Grade {
+    id INTEGER [primary key]
+    level_name VARCHAR 
+    description VARCHAR 
+    }
+
+Table Student {
+    id INTEGER [primary key]
+    name VARCHAR 
+    date_of_birth DATETIME 
+    grade_id INTEGER 
+    }
+
+Table StudentGrade {
+    id INTEGER [primary key]
+    student_id INTEGER 
+    subject VARCHAR 
+    grade VARCHAR 
+    }
+
+Table Teacher {
+    id INTEGER [primary key]
+    name VARCHAR 
+    date_of_birth DATETIME 
+    qualification VARCHAR 
+    }
+
+Table TeacherSkill {
+    id INTEGER [primary key]
+    teacher_id INTEGER 
+    skill_name VARCHAR 
+    }
+
+Table TeacherTopicAssignment {
+    id INTEGER [primary key]
+    teacher_id INTEGER 
+    topic_name VARCHAR 
+    }
+
+Table Zoo {
+    id INTEGER [primary key]
+    animal_name VARCHAR 
+    species VARCHAR 
+    description VARCHAR 
+    }
+
+
+
+// Relationships
+    Ref: Student.(grade_id) < Grade.(id)
+    Ref: StudentGrade.(student_id) < Student.(id)
+    Ref: TeacherSkill.(teacher_id) < Teacher.(id)
+    Ref: TeacherTopicAssignment.(teacher_id) < Teacher.(id)

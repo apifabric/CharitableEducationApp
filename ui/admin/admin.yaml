@@ -1,0 +1,206 @@
+about:
+  date: December 24, 2024 17:02:55
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 4
+  number_tables: 9
+info_toggle_checked: true
+resources:
+  Fundraising:
+    attributes:
+    - label: ' business_name*'
+      name: business_name
+      search: true
+      sort: true
+    - name: date
+      type: DATETIME
+    - name: id
+    - name: amount_raised
+    description: Records fundraising activities from local businesses.
+    info_list: Records fundraising activities from local businesses.
+    type: Fundraising
+    user_key: business_name
+  GovernmentGrant:
+    attributes:
+    - label: ' grant_name*'
+      name: grant_name
+      search: true
+      sort: true
+    - name: grant_date
+      type: DATETIME
+    - name: id
+    - name: amount_awarded
+    description: Stores information about government grants.
+    info_list: Stores information about government grants.
+    type: GovernmentGrant
+    user_key: grant_name
+  Grade:
+    attributes:
+    - label: ' level_name*'
+      name: level_name
+      search: true
+      sort: true
+    - name: description
+    - name: id
+    description: Represents grade levels for students.
+    info_list: Represents grade levels for students.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - grade_id
+      name: StudentList
+      resource: Student
+    type: Grade
+    user_key: level_name
+  Student:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: grade_id
+    - name: date_of_birth
+      type: DATETIME
+    - name: id
+    description: Stores student details and information.
+    info_list: Stores student details and information.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - student_id
+      name: StudentGradeList
+      resource: StudentGrade
+    - direction: toone
+      fks:
+      - grade_id
+      name: grade
+      resource: Grade
+    type: Student
+    user_key: name
+  StudentGrade:
+    attributes:
+    - label: ' id*'
+      name: id
+      search: true
+      sort: true
+    - name: student_id
+    - name: subject
+    - name: grade
+    description: Records student grades.
+    info_list: Records student grades.
+    tab_groups:
+    - direction: toone
+      fks:
+      - student_id
+      name: student
+      resource: Student
+    type: StudentGrade
+    user_key: id
+  Teacher:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: date_of_birth
+      type: DATETIME
+    - name: qualification
+    - name: id
+    description: Table to store teacher details.
+    info_list: Table to store teacher details.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - teacher_id
+      name: TeacherSkillList
+      resource: TeacherSkill
+    - direction: tomany
+      fks:
+      - teacher_id
+      name: TeacherTopicAssignmentList
+      resource: TeacherTopicAssignment
+    type: Teacher
+    user_key: name
+  TeacherSkill:
+    attributes:
+    - label: ' skill_name*'
+      name: skill_name
+      search: true
+      sort: true
+    - name: teacher_id
+    - name: id
+    description: Records skills of teachers.
+    info_list: Records skills of teachers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - teacher_id
+      name: teacher
+      resource: Teacher
+    type: TeacherSkill
+    user_key: skill_name
+  TeacherTopicAssignment:
+    attributes:
+    - label: ' topic_name*'
+      name: topic_name
+      search: true
+      sort: true
+    - name: teacher_id
+    - name: id
+    description: Assigns topics to teachers.
+    info_list: Assigns topics to teachers.
+    tab_groups:
+    - direction: toone
+      fks:
+      - teacher_id
+      name: teacher
+      resource: Teacher
+    type: TeacherTopicAssignment
+    user_key: topic_name
+  Zoo:
+    attributes:
+    - label: ' animal_name*'
+      name: animal_name
+      search: true
+      sort: true
+    - name: species
+    - name: description
+    - name: id
+    description: Contains information about the local zoo.
+    info_list: Contains information about the local zoo.
+    type: Zoo
+    user_key: animal_name
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
